@@ -2,12 +2,12 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.urls import reverse
 from django.utils import timezone
+from taggit.managers import TaggableManager
 
 from blog.managers import PublishedManager
 
 
 class Post(models.Model):
-
     class Status(models.TextChoices):
         DRAFT = "DRAFT", "Draft"
         PUBLISHED = "PUB", "Published"
@@ -24,6 +24,8 @@ class Post(models.Model):
     published = models.DateTimeField(default=timezone.now)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+
+    tags = TaggableManager()
 
     objects = models.Manager()
     approved = PublishedManager()
@@ -49,16 +51,14 @@ class Post(models.Model):
 
 class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name="comments")
-    name = models.ForeignKey(User, on_delete=models.CASCADE, related_name="comments")
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="comments")
     body = models.TextField(max_length=250)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
+    class Meta:
+        ordering = ["-created"]
+        indexes = [models.Index(fields=["-created"])]
 
-class Meta:
-    ordering = ["-created"]
-    indexes = [models.Index(fields=["-created"])]
-
-
-def __str__(self):
-    return f"Connetn by {self.user} on {self.post}"
+    def __str__(self):
+        return f"Connetn by {self.user} on {self.post}"
