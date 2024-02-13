@@ -59,7 +59,10 @@ TEMPLATES = [
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
             ],
-            "libraries": {"render_markdown": "templatetags.markdown"},
+            "libraries": {
+                "render_markdown": "templatetags.markdown",
+                "forms_tags": "templatetags.forms_tags",
+            },
         },
     },
 ]
