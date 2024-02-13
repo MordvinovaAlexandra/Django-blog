@@ -9,3 +9,5 @@ poetry run python src/manage.py runserver
 poetry add django-taggit
 
 poetry run markdown
+
+poetry run django-admin startapp account
