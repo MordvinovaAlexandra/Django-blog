@@ -1,8 +1,9 @@
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import redirect, render
+from django.urls import reverse
 
-from account.forms import LoginForm
+from account.forms import LoginForm, SignupForm
 
 
 def user_login(request):
@@ -16,12 +17,27 @@ def user_login(request):
             if user is not None:
                 if user.is_active:
                     login(request, user)
-                    return HttpResponse("Authenticated successfully")
+                    return redirect(reverse("blog:post_list"))
                 else:
-                    return HttpResponse("Disabled account")
+                    return HttpResponse("Невозможный аккаунт")
             else:
-                return HttpResponse("Invalid login")
+                return HttpResponse("Неверный логин")
     else:
         form = LoginForm()
 
     return render(request, "account/login.html", {"form": form})
+
+
+def user_signup(request):
+    if request.method == "POST":
+        form = SignupForm(request.POST)
+        if form.is_valid():
+            cd = form.cleaned_data
+            user = form.save(commit=False)
+            user.set_password(cd["password"])
+            user.save()
+            return redirect(reverse("account:login"))
+    else:
+        form = SignupForm()
+
+    return render(request, "account/signup.html", {"form": form})

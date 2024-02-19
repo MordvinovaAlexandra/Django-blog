@@ -11,6 +11,18 @@ from blog.forms import CommentForm, EmailPostForm
 from blog.models import Post
 
 
+class PostListByUserView(ListView):
+    paginate_by = 5
+    context_object_name = "posts"
+    template_name = "blog/post/list.html"
+
+    def get_queryset(self):
+        username = self.kwargs.get("username")
+        queryset = Post.objects.filter(author__username=username)
+
+        return queryset
+
+
 class PostListView(ListView):
     queryset = Post.approved.all()
     paginate_by = 5

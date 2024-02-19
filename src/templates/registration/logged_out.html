@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load forms_tags %}
+
+{% block title %}
+Logged Out
+{% endblock %}
+
+{% block main %}
+<h1 class="text-4xl mx-auto">Вам что, выйти захотелось?</h1>
+
+<p>Скоро вы будете перенаправлены... Ожидайте...<span class="timer">3</span></p>
+</form>
+{% endblock %}
+
+{% block js %}
+<script>
+    const baseUrl = location.origin
+    const timerElement = document.querySelector('.timer')
+
+    setTimeout(() => {
+        location.href = `${baseUrl}/account/login`
+    }, 3000)
+
+    setInterval(() => {
+        const nextTime = Number(timerElement.textContent) - 1
+        timerElement.textContent = (nextTime === 0) ? '...Вжух!...' : nextTime
+    }, 1000)
+</script>
+{% endblock %}

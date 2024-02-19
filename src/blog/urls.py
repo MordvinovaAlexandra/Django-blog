@@ -2,6 +2,7 @@ from django.urls import path
 
 from blog.views import (
     PostListByTagView,
+    PostListByUserView,
     PostListView,
     post_comment,
     post_detail,
@@ -23,5 +24,6 @@ urlpatterns = [
         PostListByTagView.as_view(),
         name="post_list_by_tag",
     ),
+    path("posts/<username>", PostListByUserView.as_view(), name="post_list_by_user"),
     path("posts/", PostListView.as_view(), name="post_list"),
 ]

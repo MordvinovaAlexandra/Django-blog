@@ -2,10 +2,10 @@
 : Все статьи
 {% endblock %}
 
-{% load markdown %}
+{% load render_markdown %}
 
 {% block main %}
-<h2 class="text-2xl">All Posts</h2>
+<h2 class="text-2xl">Все заметки</h2>
 
 {% for post in posts %}
 <article class="card card-side bg-base-100 shadow-xl">
@@ -27,6 +27,8 @@
     <footer class="text-base">Published {{ post.published }} by {{ post.author }}</footer>
   </div>
 </article>
+{% empty %}
+<p class="text-lg">Прощения просим, но заметок нет</p>
 
 {% endfor %}
 {% include 'blog/post/pagination.html' with page=page_obj %}

@@ -9,7 +9,7 @@
   <p class="post__body">{{ post.body }}</p>
   <footer class="post__meta">
     Published {{ post.published }} by {{ post.author }}
-    <a href="{% url 'blog:post_share' post.id %}">Share this post</a>
+    <a href="{% url 'blog:post_share' post.id %}">Поделиться этим постом</a>
   </footer>
 </article>
 
@@ -24,7 +24,7 @@
   {{ comment.body|linebreaks }}
 </div>
 {% empty %}
-<p>There are no comments.</p>
+<p>Без комментариев</p>
 
 {% endfor %}
 {% include 'blog/post/comment_form.html' %}

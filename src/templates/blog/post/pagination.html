@@ -1,14 +1,16 @@
+{% if page.paginator.num_pages > 1 %}
 <div class="join pagination">
   <span class="step-links">
     {% if page.has_previous %}
-    <a class="join-item btn" href="?page={{ page.previous_page_number }}">Previous</a>
+    <a class="join-item btn" href="?page={{ page.previous_page_number }}">Предыдущая</a>
     {% endif %}
-    <span class="join-item btn btn-primary" class="current">Page {{ page.number }} of {{ page.paginator.num_pages }}</span>
+    <span class="join-item btn btn-primary" class="current">Страница {{ page.number }} из {{ page.paginator.num_pages }}</span>
     {% if page.has_next %}
-    <a class="join-item btn" href="?page={{ page.next_page_number }}">Next</a>
+    <a class="join-item btn" href="?page={{ page.next_page_number }}">Следующая</a>
     {% endif %}
   </span>
 </div>
+{% endif %}
 
 <!-- <div class="join">
   <button class="join-item btn">«</button>
