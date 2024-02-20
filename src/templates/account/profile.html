@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load forms_tags %}
+
+{% block title %}
+Профиль
+{% endblock %}
+
+{% block main %}
+<h1 class="text-4xl mx-auto">Профиль</h1>
+<form method="post" class="flex flex-col gap-2 max-w-xl mx-auto" enctype="multipart/form-data">
+    <label for="Аватар" class="label-text">{{ form.avatar.label }}</label>
+    <!-- {{ form.avatar|with_class:"file-input file-input-bordered file-input-info w-full max-w-xs" }} -->
+    {{ form.as_p}}
+    {% csrf_token %}
+    <button class="btn btn-outline btn-primary" type="submit">Сохранить</button>
+</form>
+{% endblock %}
