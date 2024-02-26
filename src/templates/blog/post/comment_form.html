@@ -1,6 +1,20 @@
-<h2>Добавить новый комментарий</h2>
-<form action="{% url " blog:post_comment" post.id %}" method="post">
-    {{ form.as_p }}
-    {% csrf_token %}
-    <p><input type="submit" value="Добавить комментарий"></p>
-</form>
+{% load render_markdown %}
+{% load forms_tags %}
+
+<div class="collapse bg-base-200 text-blue-800">
+    <input type="checkbox" />
+    <div class="collapse-title text-xl text-blue-800 font-medium">
+        Добавить новый комментарий
+    </div>
+    <div class="collapse-content">
+        <form action="" method="post" class="flex flex-col gap-4 mt-8">
+            <input type="number" value="{{ post.id }}" name="post_id" hidden />
+            <!-- {{ form.body.label}} -если я права, то это было когда-то на месте "Собственно, комментарий"-->
+            <label for="body" class="label-text"> Собственно, комментарий </label>
+            {{ form.body|with_class:"textarea textarea-bordered resize-none w-full" }}
+
+            {% csrf_token %}
+            <button type="submit" class="btn fixed z-10 bottom-8 right-8 bg-blue-800 text-black-800">Отправить!</button>
+        </form>
+    </div>
+</div>
