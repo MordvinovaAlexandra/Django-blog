@@ -40,10 +40,10 @@
 
 {% block js %}
 <script>
-  function createCommentElement({ body, created, user_id }) {
+  function createCommentElement({ body, created, user }) {
     const commentElement = document.createElement('div')
     commentElement.innerHTML = `<div class="comment">
-      <p class="info">Comment by ${user_id} ${created}</p>
+      <p class="info">Comment by ${user.username} ${new Date(created).toLocaleString('ru')}</p>
       ${body}
       </div>`
     return commentElement
